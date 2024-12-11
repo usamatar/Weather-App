@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet", href="style.css">
+</head>
+<body>
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="Enter City Name", spellcheck="false">
+            <button><img src="search.png"></button>
+        </div>
+        <div class="Weather">
+            <img src="rain.png" class="Weather-icon">
+            <h1 class="temp">22°C</h1>
+            <h2 class="city">New York</h2>
+            <div class="Details">
+                <div class="col">
+                    <img src="humidity.png" alt="">
+                    <div>
+                        <p class="Humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="wind.png" alt="">
+                    <div>
+                        <p class="Wind">15km/h</p>
+                        <p>Wind speed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script> 
+        const apiKey ="cd8a044946534cb084335640242405";
+        const apiUrl="http://api.weatherapi.com/v1/current.json?key=cd8a044946534cb084335640242405&q=";
+        const searchBox = document.querySelector(".search input");
+        const searchbtn = document.querySelector(".search button");
+
+
+        async function checkweather(){
+            const response = await fetch(apiUrl +  `&appid=${apiKey}`);
+            var data = await response.json();
+            console.log(data);
+            document.querySelector(".city").innerHTML = data.location.name;
+            document.querySelector(".temp").innerHTML = data.current.temp_c ;
+            document.querySelector(".Humidity").innerHTML = data.current.humidity ;
+            document.querySelector(".Wind").innerHTML = data.current.wind_kph ;
+              
+        }
+        // // searchbtn.addEventListener("click", ()=>{
+        // //     checkweather(searchBox.value);
+        // })
+        checkweather();
+
+
+    
+    </script>
+</body>
+</html>
